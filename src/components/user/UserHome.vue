@@ -1,12 +1,14 @@
 <template>
   <div>
     <h1>User Home</h1>
+    <h5>({{ id }})</h5>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'UserHome'
+  name: 'UserHome',
+  props: ['id']
 };
 </script>
 
