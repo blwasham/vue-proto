@@ -10,6 +10,9 @@
 </template>
 
 <script>
+function checkPasswordFunction() {
+  console.log('puke 123123123');
+}
 export default {
   name: 'FormlyExample',
   data() {
@@ -57,7 +60,7 @@ export default {
           },
           required: true,
           validators: {
-            //validPassword: checkPasswordFunction
+            validPassword: checkPasswordFunction
           },
           wrapper: '<div class="col-8 text-info"></div>'
         },
