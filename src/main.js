@@ -3,7 +3,7 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import 'bootstrap-sass';
+//import 'bootstrap';
 import './assets/styles.scss';
 import VueFormly from 'vue-formly';
 import VueFormlyBootstrap from 'vue-formly-bootstrap';

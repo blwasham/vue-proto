@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <pre class="col-sm text-info">model: {{ model }}</pre>
-
+      <button class="btn btn-primary">Funky Red Button</button>
        <form @submit="handleSubmission">
           <formly-form :form="form" :model="model" :fields="fields"></formly-form>
           <button>Submit</button>

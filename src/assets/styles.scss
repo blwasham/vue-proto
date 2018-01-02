@@ -1,2 +1,17 @@
+//reset fonts path so glyphicon font files are found
 $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+
+// overide flatly variables here
+// ie - $blue: #ff0000;
+
+// flatly variables
+@import '../../node_modules/bootswatch/dist/flatly/variables';
+
+// overide bootstrap variables here
+// ie - $body-bg: #efefef;
+
+// bootstrap scss
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+// flatly bootstrap structural changes
+@import '../../node_modules/bootswatch/dist/flatly/bootswatch';
