@@ -1,0 +1,44 @@
+Adding bootstrap, bootstrap-sass, and font-awesome to VueJS CLI project
+
+1) remove link to bootstrap css on index.html (if exists)
+
+2) install necessary modules
+yarn add install bootstrap
+yarn add install bootstrap-sass
+yarn add install jquery
+yarn add popper.js
+yarn add node-sass
+yarn add sass-loader
+yarn add vue-awesome
+
+3) configure jquery as plugin webpack.dev.conf.js
+
+    new webpack.ProvidePlugin({
+      $: "jquery",
+     jQuery: "jquery"
+    }),
+
+4) Include & Configure bootstrap in main.js
+
+import 'bootstrap-sass';
+import './assets/styles.scss';
+import VueFormly from 'vue-formly';
+import VueFormlyBootstrap from 'vue-formly-bootstrap';
+
+Vue.use(VueFormly);
+Vue.use(VueFormlyBootstrap);
+
+5) Include & Configure font-awesome in main.js
+
+// only import icons you use to reduce bundle size
+import 'vue-awesome/icons/beer';
+
+import Icon from 'vue-awesome/components/Icon';
+
+Vue.component('icon', Icon);
+
+6) Create styles.scss file and include the following
+
+// point to font files
+$icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
