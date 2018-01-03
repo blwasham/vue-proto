@@ -31,6 +31,23 @@ Vue.component('icon', Icon);
 Vue.use(VueFormly);
 Vue.use(VueFormlyBootstrap);
 
+// VueLocalStorage Config
+import VueLocalStorage from 'vue-localstorage';
+
+Vue.use(VueLocalStorage, {
+  name: 'ls',
+  bind: true //created computed members from your variable declarations
+});
+
+// VuePersist config
+import VuePersist from 'vue-persist';
+Vue.use(VuePersist, {
+  write(k, v) {
+    let prefixedKey = `medical-${k}`;
+    return localStorage.setItem(prefixedKey, v);
+  }
+});
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

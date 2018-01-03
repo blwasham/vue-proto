@@ -2,7 +2,7 @@
     <div class="container">
       <pre class="col-sm text-info">model: {{ model }}</pre>
       <button class="btn btn-primary">Funky Red Button</button>
-       <form @submit="handleSubmission">
+       <form @submit="handleSubmission(model)">
           <formly-form :form="form" :model="model" :fields="fields"></formly-form>
           <button>Submit</button>
        </form>
@@ -13,20 +13,34 @@
 function checkPasswordFunction() {
   console.log('puke 123123123');
 }
+
 export default {
   name: 'FormlyExample',
+  persist: ['model'],
+  methods: {
+    initModel() {
+      let lsValObj = JSON.parse(this.$ls.get('medical-persist:store'));
+
+      if (lsValObj) {
+        return lsValObj.data.model;
+      }
+
+      // return {
+      //   name: 'Tito',
+      //   email: 'tito@tonto.com',
+      //   password: '234',
+      //   displayMyField: 'yes',
+      //   myField: 'boo boo chicken'
+      // };
+    }
+  },
   data() {
     return {
-      handleSubmission() {
-        console.log('handling submission now');
+      handleSubmission(model) {
+        //this.$ls.set('model.name', model.name);
+        //this.$persist(['model'], 'vision');
       },
-      model: {
-        name: 'Tito',
-        email: 'tito@tonto.com',
-        password: '234',
-        displayMyField: 'yes',
-        myField: 'boo boo chicken'
-      },
+      model: this.initModel(),
       form: {},
       fields: [
         {
@@ -89,4 +103,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  button {
+    /*color: blue;*/
+  }
 </style>

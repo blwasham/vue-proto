@@ -4,12 +4,14 @@ Adding bootstrap, bootstrap-sass, and font-awesome to VueJS CLI project
 
 2) install necessary modules
   yarn add install bootstrap@4.0.0-aplha.6
-  yarn add install bootstrap-sass
-  yarn add install jquery
-  yarn add popper.js
+  //yarn add install bootstrap-sass
+  // X ?yarn add install jquery // above bootstrap install may install these two
+  // X ?yarn add popper.js
   yarn add node-sass
   yarn add sass-loader
   yarn add vue-awesome
+
+  *** had to add Tether: 'tether' to webpack.dev.conf.js where jquery is called out
 
 3) configure jquery as plugin webpack.dev.conf.js
   new webpack.ProvidePlugin({
@@ -34,6 +36,7 @@ Adding bootstrap, bootstrap-sass, and font-awesome to VueJS CLI project
 
 6) Create styles.scss file and include the following
   //reset fonts path so glyphicon font files are found
+  //this may throw errors down the road if the files are not found or copied into the build
   $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 
   // overide flatly variables here
