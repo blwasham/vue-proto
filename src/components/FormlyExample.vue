@@ -19,10 +19,12 @@ export default {
   persist: ['model'],
   methods: {
     initModel() {
-      let lsValObj = JSON.parse(this.$ls.get('medical-persist:store'));
+      let lsValObj = JSON.parse(this.$ls.get('medical-vision'));
 
       if (lsValObj) {
         return lsValObj.data.model;
+      } else {
+        return {};
       }
 
       // return {
@@ -37,7 +39,6 @@ export default {
   data() {
     return {
       handleSubmission(model) {
-        //this.$ls.set('model.name', model.name);
         //this.$persist(['model'], 'vision');
       },
       model: this.initModel(),

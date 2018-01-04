@@ -33,7 +33,6 @@ Vue.use(VueFormlyBootstrap);
 
 // VueLocalStorage Config
 import VueLocalStorage from 'vue-localstorage';
-
 Vue.use(VueLocalStorage, {
   name: 'ls',
   bind: true //created computed members from your variable declarations
@@ -43,6 +42,8 @@ Vue.use(VueLocalStorage, {
 import VuePersist from 'vue-persist';
 Vue.use(VuePersist, {
   write(k, v) {
+    console.log('!!!! key', k);
+    console.log('!!!! val', v);
     let prefixedKey = `medical-${k}`;
     return localStorage.setItem(prefixedKey, v);
   }
