@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-      <pre class="col-sm text-info">model: {{ model }}</pre>
-      <button class="btn btn-primary">Funky Red Button</button>
+      <pre class="text-info">model: {{ model }}</pre>
        <form @submit="handleSubmission(model)">
           <formly-form :form="form" :model="model" :fields="fields"></formly-form>
           <button>Submit</button>
@@ -10,38 +9,40 @@
 </template>
 
 <script>
+import _ from 'lodash';
+import { safeParse } from '../jsonHelpers.js';
+
 function checkPasswordFunction() {
-  console.log('puke 123123123');
+  console.log('calling checkPasswordFunction');
+}
+
+// function _parseLodash(str) {
+//   return _.attempt(JSON.parse.bind(null, str));
+// }
+
+function initModel(that) {
+  let modelFromStorage = safeParse(that.$ls.get('medical-vision')); //_parseLodash(that.$ls.get('medical-vision'));
+
+  if (!_.isError(modelFromStorage) && !_.isEmpty(modelFromStorage)) {
+    return modelFromStorage;
+  } else {
+    return {};
+  }
 }
 
 export default {
   name: 'FormlyExample',
-  persist: ['model'],
-  methods: {
-    initModel() {
-      let lsValObj = JSON.parse(this.$ls.get('medical-vision'));
-
-      if (lsValObj) {
-        return lsValObj.data.model;
-      } else {
-        return {};
-      }
-
-      // return {
-      //   name: 'Tito',
-      //   email: 'tito@tonto.com',
-      //   password: '234',
-      //   displayMyField: 'yes',
-      //   myField: 'boo boo chicken'
-      // };
-    }
+  created() {
+    console.log('calling created');
+    this.$persist(['model'], 'vision');
   },
   data() {
     return {
-      handleSubmission(model) {
+      handleSubmission(/*model*/) {
+        console.log('calling handleSubmission');
         //this.$persist(['model'], 'vision');
       },
-      model: this.initModel(),
+      model: initModel(this),
       form: {},
       fields: [
         {
@@ -76,8 +77,7 @@ export default {
           required: true,
           validators: {
             validPassword: checkPasswordFunction
-          },
-          wrapper: '<div class="col-8 text-info"></div>'
+          }
         },
         {
           key: 'displayMyField',
@@ -92,7 +92,12 @@ export default {
           type: 'input',
           display: function(field, model) {
             console.info('calling display');
-            return model.displayMyField === 'yes';
+
+            if (model.displayMyField === 'yes') {
+              return true;
+            } else {
+              console.log('field', field);
+            }
           },
           wrapper: '<div class="col-8 text-warning"></div>'
         }

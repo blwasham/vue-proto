@@ -7,7 +7,8 @@ import router from './router';
 import './assets/styles.scss';
 import VueFormly from 'vue-formly';
 import VueFormlyBootstrap from 'vue-formly-bootstrap';
-
+import jsonHelpers from './jsonHelpers.js';
+import _ from 'lodash';
 // START font awesome for vue config
 
 // only import icons you use to reduce bundle size
@@ -18,13 +19,6 @@ import 'vue-awesome/icons/beer';
 import Icon from 'vue-awesome/components/Icon';
 
 Vue.component('icon', Icon);
-
-// or locally (in your component file)
-// export default {
-//   components: {
-//     Icon
-//   }
-// }
 
 // END font awesome for vue config
 
@@ -42,10 +36,14 @@ Vue.use(VueLocalStorage, {
 import VuePersist from 'vue-persist';
 Vue.use(VuePersist, {
   write(k, v) {
-    console.log('!!!! key', k);
-    console.log('!!!! val', v);
+    console.log('####### v', v);
+
     let prefixedKey = `medical-${k}`;
-    return localStorage.setItem(prefixedKey, v);
+    let parsedVal = jsonHelpers.safeParse(v);
+    let parsedValObj = _.get(parsedVal, 'data.model', parsedVal);
+    let parsedValStr = jsonHelpers.safeStringify(parsedValObj);
+
+    return localStorage.setItem(prefixedKey, parsedValStr);
   }
 });
 
