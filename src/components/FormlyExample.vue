@@ -9,32 +9,20 @@
 </template>
 
 <script>
-import _ from 'lodash';
-import { safeParse } from '../jsonHelpers.js';
+//import _ from 'lodash';
+import storageHelpers from '../storageHelpers.js';
+
+const sectionKey = 'vision';
 
 function checkPasswordFunction() {
   console.log('calling checkPasswordFunction');
-}
-
-// function _parseLodash(str) {
-//   return _.attempt(JSON.parse.bind(null, str));
-// }
-
-function initModel(that) {
-  let modelFromStorage = safeParse(that.$ls.get('medical-vision')); //_parseLodash(that.$ls.get('medical-vision'));
-
-  if (!_.isError(modelFromStorage) && !_.isEmpty(modelFromStorage)) {
-    return modelFromStorage;
-  } else {
-    return {};
-  }
 }
 
 export default {
   name: 'FormlyExample',
   created() {
     console.log('calling created');
-    this.$persist(['model'], 'vision');
+    this.$persist(['model'], sectionKey);
   },
   data() {
     return {
@@ -42,7 +30,7 @@ export default {
         console.log('calling handleSubmission');
         //this.$persist(['model'], 'vision');
       },
-      model: initModel(this),
+      model: storageHelpers.read(sectionKey),
       form: {},
       fields: [
         {
@@ -52,7 +40,7 @@ export default {
           templateOptions: {
             label: 'Name'
           },
-          wrapper: '<div class="col-8 text-danger"></div>'
+          wrapper: '<div class="col-6"></div>'
         },
         {
           key: 'email',
@@ -64,8 +52,7 @@ export default {
           required: true,
           validators: {
             //validEmail: checkEmailFunction
-          },
-          wrapper: '<div class="col-8 text-warning"></div>'
+          }
         },
         {
           key: 'password',
@@ -84,22 +71,16 @@ export default {
           type: 'input',
           templateOptions: {
             label: 'Display Hidden Field'
-          },
-          wrapper: '<div class="col-8 text-warning"></div>'
+          }
         },
         {
           key: 'myField',
           type: 'input',
           display: function(field, model) {
-            console.info('calling display');
-
             if (model.displayMyField === 'yes') {
               return true;
-            } else {
-              console.log('field', field);
             }
-          },
-          wrapper: '<div class="col-8 text-warning"></div>'
+          }
         }
       ]
     };
